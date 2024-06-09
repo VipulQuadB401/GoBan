@@ -20,6 +20,7 @@ import {
   ListItemText,
 } from "@material-ui/core";
 
+// Define custom styles using Material-UI's makeStyles
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -54,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// Light theme configuration
 const lightTheme = createTheme({
   palette: {
     primary: {
@@ -72,6 +74,7 @@ const lightTheme = createTheme({
   },
 });
 
+// Dark theme configuration
 const darkTheme = createTheme({
   palette: {
     type: "dark",
@@ -92,17 +95,18 @@ const darkTheme = createTheme({
 });
 
 function App() {
-  const classes = useStyles();
-  const [isLoading, setIsLoading] = useState(true);
-  const [users, setUsers] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [currentUser, setCurrentUser] = useState(null);
-  const [previousUsers, setPreviousUsers] = useState([]);
-  const [showCurrent, setShowCurrent] = useState(false);
-  const [showPrevious, setShowPrevious] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
-  const listRef = useRef();
+  const classes = useStyles(); // Use the defined styles
+  const [isLoading, setIsLoading] = useState(true); // State to handle loading
+  const [users, setUsers] = useState([]); // State to store user data
+  const [searchQuery, setSearchQuery] = useState(""); // State for search input
+  const [currentUser, setCurrentUser] = useState(null); // State for the currently selected user
+  const [previousUsers, setPreviousUsers] = useState([]); // State to store previous users
+  const [showCurrent, setShowCurrent] = useState(false); // State to toggle current user display
+  const [showPrevious, setShowPrevious] = useState(false); // State to toggle previous users display
+  const [darkMode, setDarkMode] = useState(false); // State for dark mode
+  const listRef = useRef(); // Ref to handle click outside event
 
+  // Fetch user data when the component mounts
   useEffect(() => {
     setIsLoading(true);
 
@@ -121,6 +125,7 @@ function App() {
     };
   }, []);
 
+  // Handle clicks outside of the list to hide current/previous user lists
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (listRef.current && !listRef.current.contains(event.target)) {
@@ -135,6 +140,7 @@ function App() {
     };
   }, []);
 
+  // Handle user selection and update current and previous users
   const handleSelectUser = (user) => {
     setPreviousUsers((prev) => {
       if (currentUser) {
@@ -145,6 +151,7 @@ function App() {
     setCurrentUser(user);
   };
 
+  // Handle search input key press (Enter key) to select user
   const handleInputKeyPress = (e) => {
     if (e.key === "Enter") {
       const match = users.find(
@@ -156,6 +163,7 @@ function App() {
     }
   };
 
+  // Filter users based on search query
   const filteredUsers = users.filter((user) =>
     user.name.toLowerCase().includes(searchQuery.toLowerCase())
   );

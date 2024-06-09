@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core";
 import { Person, Add } from "@material-ui/icons";
 
+// Define custom styles using Material-UI's makeStyles
 const useStyles = makeStyles((theme) => ({
   listItem: {
     "&:hover": {
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function User({ name, onSelect, selected }) {
-  const classes = useStyles();
+  const classes = useStyles(); // Use the defined styles
 
   return (
     <ListItem
